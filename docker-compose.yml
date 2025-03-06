@@ -38,7 +38,7 @@ services:
      - vertigo-network
   app-client:
     build:
-      context: ./app/ams-master/client
+      context: ./app/client
       dockerfile: Dockerfile
     container_name: app-client
     restart: always
