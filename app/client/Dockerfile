@@ -3,10 +3,10 @@ FROM node:19.5.0-alpine
 # install simple http server for serving static content
 RUN npm install -g http-server
 # make the 'app' folder the current working directory
-RUN cd ./vertigo/app/client
-#WORKDIR ./app/client
+#RUN cd ./vertigo/app/client
+#WORKDIR ./app
 # copy 'package.json' to install dependencies
-COPY package*.json ./
+COPY /app/client/package*.json ./
 # install dependencies
 RUN npm install
 # copy files and folders to the current working directory (i.e. 'app' folder)
