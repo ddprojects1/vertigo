@@ -4,7 +4,8 @@ FROM node:19.5.0-alpine
 #RUN npm install -g http-server
 # make the 'app' folder the current working directory
 #RUN cd ./vertigo/app/client
-#WORKDIR ./client
+
+WORKDIR /usr/app
 
 ENV PATH ./client/node_modules/.bin:$PATH
 
@@ -13,7 +14,7 @@ COPY package*.json ./
 # install dependencies
 RUN npm install 
 # copy files and folders to the current working directory (i.e. 'app' folder)
-COPY . .
+COPY ./ /usr/app
 # build app for production with minification
 RUN npm run build
 EXPOSE 8080
