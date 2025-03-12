@@ -7,7 +7,7 @@ FROM node:19.5.0-alpine
 
 RUN cd /app/client && ls 
 
-WORKDIR /app/client
+WORKDIR /
 
 ENV PATH ./client/node_modules/.bin:$PATH
 
