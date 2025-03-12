@@ -1,12 +1,12 @@
 FROM node:lts-alpine
 # install simple http server for serving static content
 
-RUN cd /home/runner && ls
+RUN cd /home && ls
 RUN pwd && ls
 
 RUN npm install -g http-server
 # make the 'app' folder the current working directory
-WORKDIR /home/runner/work/vertigo/vertigo/app/client
+WORKDIR ./app/client/
 # copy 'package.json' to install dependencies
 COPY package*.json ./
 # install dependencies
