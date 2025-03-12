@@ -1,6 +1,9 @@
 FROM node:19.5.0-alpine
 # added latest code branch 
 # install simple http server for serving static content
+
+RUN cd /home && ls
+
 RUN npm install -g http-server
 # make the 'app' folder the current working directory
 #RUN cd ./vertigo/app/client
