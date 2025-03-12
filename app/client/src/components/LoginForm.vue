@@ -1,3 +1,45 @@
+<!-- <template>
+  <div v-if="loading">Loading...</div>
+  <div v-else-if="error">{{ error }}</div>
+  <ul v-else>
+    <li>{{this.data.name}}</li>
+    <li v-for="item in data" :key="item.id">{{ item.name}}</li>
+  </ul>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      data: null,
+      loading: false,
+      error: null,
+    };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      this.loading = true;
+      this.error = null;
+      try {
+        const response = await axios.get('https://api.nationalize.io/?name=nathaniel');
+        console.log(response.data)
+        this.data = response.data;
+      } catch (err) {
+        this.error = err.message;
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+};
+</script> -->
+
+
 <template>
   <div class="registration">
     <div>
@@ -32,6 +74,9 @@
 </template>
 
 <script>
+
+import axios from 'axios';
+
 export default {
   name: "LoginForm",
   data() {
@@ -41,11 +86,23 @@ export default {
     }
   },
   methods : {
-    login() {
-      if(this.username === 'asm_admin' && this.password === '9935asm') {
+    async login() {
+      console.log("Inside Login");
+      if(this.username === 'dennis' && this.password === 'wexford') {
         //Success Route - DashBoard
-        sessionStorage.setItem("loginSuccess", true);
-        this.$router.push({name : 'dashboard'})
+        
+        let header = {  headers: {    'Content-Type': 'application/json'  }}
+
+        const request_data = {"username":this.username, "password":this.password}
+        const response = await axios.post('http://localhost:8084/api/login',request_data,header);
+
+        //const response = await axios.get('http://localhost:8084/api/user');
+        //const response = await axios.get('https://jsonplaceholder.typicode.com/posts');  
+        
+        if(response.data.status=='success'){
+          sessionStorage.setItem("loginSuccess", true);
+          this.$router.push({name : 'dashboard'})
+        }
       } else {
          this.$notify.error({
           title: 'Error',

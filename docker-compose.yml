@@ -1,12 +1,29 @@
 version: "3.9"
 
 services:
-  
+# Logger Service for Getting Dozzle Up
+  # Dozzle - Real-time Docker Log Viewer
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: vertigo-dozzle
+    restart: unless-stopped
+    ports:
+      - "8084:8080"
+    environment:
+      DOZZLE_LEVEL: info
+      DOZZLE_TAILSIZE: 300
+      DOZZLE_FILTER: "status=running"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # disable when using socket proxy
+
+    networks:
+      - vertigo-network
+
   database:
     container_name: vertigo-database
     image: postgres:14-alpine
     ports:
-      - "127.0.0.1:5000:5000"
+      - "5000:5000"
     volumes:
       - ~/apps/postgres:/var/lib/postgresql/data
     environment:
@@ -43,12 +60,20 @@ services:
     container_name: app-client
     restart: always
     ports:
-      - "8080:8080"
+      - "8081:8081"
     networks:
       - vertigo-network
 
-
-
+  app-server:
+    build:
+      context: ./app/server
+      dockerfile: Dockerfile
+    container_name: app-server
+    restart: always
+    ports:
+      - "8084:8084"
+    networks:
+      - vertigo-network
 
 networks:
    vertigo-network:

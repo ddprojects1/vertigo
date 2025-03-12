@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^1.8.1",
     "core-js": "^3.8.3",
     "element-ui": "^2.15.6",
     "vue": "^2.6.14",
@@ -41,5 +42,9 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "description": "This is basically a small application that I made in weekend.",
+  "main": "babel.config.js",
+  "author": "",
+  "license": "ISC"
 }

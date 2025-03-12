@@ -7,6 +7,7 @@ import (
 	"go-postgres/models" // models package where User schema is defined
 	"log"
 	"net/http" // used to access the request and response object of the api
+	"time"
 
 	// used to read the environment variable
 	"strconv" // package used to covert string into int type
@@ -14,6 +15,7 @@ import (
 	"github.com/gorilla/mux" // used to get the params from the route
 
 	// package used to read the .env file
+
 	_ "github.com/lib/pq" // postgres golang driver
 )
 
@@ -30,6 +32,17 @@ const (
 	password = "password"
 	dbname   = "postgres"
 )
+
+type Credentials struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type Response struct {
+	Status  string `json:"status"`
+	Message string `json:"message"`
+	Token   string `json:"token,omitempty"` // Token is optional, returned on success
+}
 
 // create connection with postgres db
 func createConnection() *sql.DB {
@@ -60,6 +73,63 @@ func createConnection() *sql.DB {
 	fmt.Println("Successfully connected!")
 	// return the connection
 	return db
+}
+
+// Login User with data from the Database
+
+// Handler for the login endpoint
+func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	var creds Credentials
+	// Try to decode the request body into the Credentials struct. If there is an error, respond to the client with the error message and a 400 status code.
+	err := json.NewDecoder(r.Body).Decode(&creds)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(Response{Status: "error", Message: "Invalid request format"})
+		return
+	}
+
+	// Authenticate the user
+	if !authenticateUser(creds.Username, creds.Password) {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(Response{Status: "error", Message: "Invalid credentials"})
+		return
+	}
+
+	// Simulate token generation
+	token := generateToken(creds.Username)
+
+	// Return success response with token
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(Response{Status: "success", Message: "Login successful", Token: token})
+}
+
+// Function to simulate user authentication (replace with actual database check)
+func authenticateUser(username string, password string) bool {
+	// In a real application, this would check against a database
+	var user models.User
+	var uid int
+
+	if username == "admin" {
+		uid = 1
+	} else {
+		uid = 1
+	}
+	user, err := getUser(int64(uid))
+
+	if err != nil {
+		log.Fatalf("Unable to get user. %v", err)
+	}
+	fmt.Println(user.Name)
+	fmt.Println(user.Location)
+
+	return user.Name == username && user.Location == password
+	//return username == "user" && password == "password"
+}
+
+// Function to simulate token generation (replace with a proper JWT or session management)
+func generateToken(username string) string {
+	// In a real application, this would generate a secure token
+	return username + "-" + time.Now().String()
 }
 
 // CreateUser create a user in the postgres db
@@ -246,6 +316,7 @@ func getUser(id int64) (models.User, error) {
 
 	switch err {
 	case sql.ErrNoRows:
+		fmt.Println(id)
 		fmt.Println("No rows were returned!")
 		return user, nil
 	case nil:
