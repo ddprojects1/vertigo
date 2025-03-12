@@ -32,8 +32,8 @@ on:
 
 env:
   AWS_REGION: us-east-2                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: vertigo-app-client           # set this to your Amazon ECR repository name
-  ECS_SERVICE: vertigo-service                 # set this to your Amazon ECS service name
+  ECR_REPOSITORY: test-repo           # set this to your Amazon ECR repository name
+  
 
 permissions:
   contents: read
