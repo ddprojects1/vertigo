@@ -23,6 +23,9 @@ const routes =[
   {
     path:'/login', name:"login", component: LoginForm
   }
+  {
+    path:'/logout', name:"login", component: LoginForm
+  }
 ];
 
 const router = new VueRouter ({
