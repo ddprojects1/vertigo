@@ -8,7 +8,7 @@ WORKDIR /app/client
 # copy 'package.json' to install dependencies
 COPY /app/client/package*.json ./
 # install dependencies
-RUN cd /app/client/ && npm install -y
+RUN npm install 
 # copy files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 # build app for production with minification
