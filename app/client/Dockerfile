@@ -5,7 +5,7 @@ RUN pwd && ls
 
 RUN npm install -g http-server
 # make the 'app' folder the current working directory
-WORKDIR /vertigo/app/client/
+WORKDIR app/client/
 # copy 'package.json' to install dependencies
 COPY package*.json ./
 # install dependencies
