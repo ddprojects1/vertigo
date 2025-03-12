@@ -1,13 +1,11 @@
-FROM node:19.5.0-alpine
-# added latest code branch 
+FROM node:lts-alpine
 # install simple http server for serving static content
 
-RUN cd /home/node/ && ls
+RUN pwd && ls
 
 RUN npm install -g http-server
 # make the 'app' folder the current working directory
-#RUN cd ./vertigo/app/client
-WORKDIR client
+WORKDIR /vertigo/app/client/
 # copy 'package.json' to install dependencies
 COPY package*.json ./
 # install dependencies
@@ -17,5 +15,4 @@ COPY . .
 # build app for production with minification
 RUN npm run build
 EXPOSE 8080
-CMD [ "http-server","dist"]
-
+CMD [ "http-server", "dist" ]
