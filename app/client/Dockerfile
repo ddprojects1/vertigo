@@ -1,6 +1,7 @@
 FROM node:lts-alpine
 # install simple http server for serving static content
 
+RUN cd /home/runner && ls
 RUN pwd && ls
 
 RUN npm install -g http-server
