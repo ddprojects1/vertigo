@@ -5,7 +5,10 @@ FROM node:19.5.0-alpine
 # make the 'app' folder the current working directory
 #RUN cd ./vertigo/app/client
 
-RUN cd /usr/app && ls 
+RUN cd /var && ls 
+RUN cd /home && ls
+
+RUN cd /usr && ls
 
 WORKDIR /app/client
 
