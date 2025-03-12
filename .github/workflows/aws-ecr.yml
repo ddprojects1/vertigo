@@ -60,10 +60,9 @@ jobs:
           # push it to ECR so that it can
           # be deployed to ECS.
           docker buildx create --use
-          docker buildx build  -f app/client/Dockerfile \
-          --platform linux/amd64,linux/arm64 \
-          -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG . \
-          ./app/client
+          
+          docker buildx build  -f app/client/Dockerfile --platform linux/amd64,linux/arm64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./app/client
+
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
