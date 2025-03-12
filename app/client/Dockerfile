@@ -4,9 +4,9 @@ FROM node:19.5.0-alpine
 #RUN npm install -g http-server
 # make the 'app' folder the current working directory
 #RUN cd ./vertigo/app/client
-WORKDIR /app/client
+WORKDIR client/
 
-ENV PATH /app/client/node_modules/.bin:$PATH
+ENV PATH client/node_modules/.bin:$PATH
 
 # copy 'package.json' to install dependencies
 COPY package*.json ./
