@@ -7,16 +7,17 @@ FROM node:19.5.0-alpine
 
 #RUN cd /app/client && ls 
 
-WORKDIR /
+ENV DIRPATH /app
+WORKDIR $DIRPATH
 
-ENV PATH ./client/node_modules/.bin:$PATH
+#ENV PATH ./client/node_modules/.bin:$PATH
 
 # copy 'package.json' to install dependencies
 COPY package*.json ./
 # install dependencies
 RUN npm install 
 # copy files and folders to the current working directory (i.e. 'app' folder)
-COPY ./ /usr/app
+COPY . . 
 # build app for production with minification
 RUN npm run build
 EXPOSE 8080
