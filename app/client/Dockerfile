@@ -5,7 +5,9 @@ FROM node:19.5.0-alpine
 # make the 'app' folder the current working directory
 #RUN cd ./vertigo/app/client
 
-WORKDIR /usr/app
+RUN pwd && ls
+
+WORKDIR /app/client
 
 ENV PATH ./client/node_modules/.bin:$PATH
 
