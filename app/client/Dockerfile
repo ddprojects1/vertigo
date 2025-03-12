@@ -6,7 +6,7 @@ RUN npm install -g http-server
 #RUN cd ./vertigo/app/client
 WORKDIR ./client
 # copy 'package.json' to install dependencies
-#COPY /app/client/package*.json ./
+COPY /app/client/package*.json ./
 # install dependencies
 RUN npm install
 # copy files and folders to the current working directory (i.e. 'app' folder)
