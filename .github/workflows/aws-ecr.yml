@@ -58,8 +58,10 @@ jobs:
           platforms: linux/amd64
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           push: true
-          secrets: |
+          env: |
             GIT_AUTH_TOKEN: ${{ secrets.MYTOKEN }}
+
+
 
         # env:
         #   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
