@@ -31,7 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     permissions:
-      deployments: write
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout
@@ -53,9 +54,9 @@ jobs:
         env:
           REGISTRY_USERNAME: ${{ github.actor }}
           REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-
     
       - name: Build, tag, and push image to Amazon ECR
+        
         id: build-image
         #uses: docker/build-push-action@v6
         run: |
