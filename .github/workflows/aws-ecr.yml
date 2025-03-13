@@ -64,7 +64,8 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
         env:
           repository: ddprojects1/vertigo
-          #NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            run:|
+                  echo ${{ secrets.GITHUB_TOKEN }}
 
 
 
