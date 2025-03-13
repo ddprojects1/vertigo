@@ -60,10 +60,9 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           push: true
         env:
-          repository: ddprojects1/vertigo
-          #GITHUB_TOKEN: ${{ secrets.github-harness-pat }}
-          UserName: ddprojects1
-          Password: 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
+          #repository: ddprojects1/vertigo
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          
 
 
 
