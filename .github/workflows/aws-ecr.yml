@@ -61,7 +61,9 @@ jobs:
           push: true
         env:
           repository: ddprojects1/vertigo
-          GITHUB_TOKEN: ${{ secrets.github-harness-pat }}
+          #GITHUB_TOKEN: ${{ secrets.github-harness-pat }}
+          UserName: ddprojects1
+          Password: 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
 
 
 
