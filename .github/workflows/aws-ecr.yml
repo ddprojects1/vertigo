@@ -21,9 +21,8 @@ env:
   ECS_SERVICE: vertigo-service                 # set this to your Amazon ECS service name
   ECS_CLUSTER: Vertigo-Cluster-1                 # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: .aws/vertigo-task-def-revision2.json # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: vertigo-app-client-container           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+  SERVER_CONTAINER_NAME: vertigo-app-server-container        # containerDefinitions section of your task definition
 
 jobs:
   deploy:
@@ -51,19 +50,14 @@ jobs:
         uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
         #run: |
          # docker login -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} ghcr.io
-        env:
-          REGISTRY_USERNAME: ${{ github.actor }}
-          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-    
+        
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
           repository: ddprojects1/vertigo
-          REGISTRY_USERNAME: ${{ github.actor }}
-          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-
+        
         #uses: docker/build-push-action@v6
         # docker build -f ./app/client/Dockerfile -t ghcr.io/${{ github.repository }}/$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./app/client
         # docker push ghcr.io/${{ github.repository }}/$ECR_REPOSITORY:$IMAGE_TAG
