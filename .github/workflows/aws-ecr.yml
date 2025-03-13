@@ -57,12 +57,16 @@ jobs:
     
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
-        uses: docker/build-push-action@v6
-        with:
-          context: ./app/client
-          platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
-          push: true
+        #uses: docker/build-push-action@v6
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/my-image:latest .
+          docker push ghcr.io/${{ github.repository }}/my-image:latest
+
+        # with:
+        #   context: ./app/client
+        #   platforms: linux/amd64
+        #   tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+        #   push: true
         env:
           repository: ddprojects1/vertigo
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN}}
