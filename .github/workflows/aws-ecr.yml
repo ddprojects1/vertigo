@@ -59,7 +59,7 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           push: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
 
