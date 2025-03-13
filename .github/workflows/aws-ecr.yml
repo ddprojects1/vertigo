@@ -59,7 +59,8 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           push: true
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repository: ddprojects1/vertigo
+          GH_TOKEN: ${{ secrets.github-harness-pat }}
 
 
 
