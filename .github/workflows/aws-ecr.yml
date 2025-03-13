@@ -57,7 +57,7 @@ jobs:
         with:
           context: ./app/client
           platforms: linux/amd64
-          tags: ${{ github.repository }}:${{ github.sha }}
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           push: true
 
           
