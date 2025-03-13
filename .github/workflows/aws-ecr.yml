@@ -59,7 +59,7 @@ jobs:
         id: build-image
         #uses: docker/build-push-action@v6
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/my-image:latest .
+          docker build -f ./app/client/Dockerfile -t ghcr.io/${{ github.repository }}/my-image:latest .
           docker push ghcr.io/${{ github.repository }}/my-image:latest
 
         # with:
@@ -69,7 +69,8 @@ jobs:
         #   push: true
         env:
           repository: ddprojects1/vertigo
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          REGISTRY_USERNAME: ${{ github.actor }}
+          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         
 
 
