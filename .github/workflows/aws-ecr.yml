@@ -47,7 +47,9 @@ jobs:
           
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
+        #uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
+        run: docker login -u ${{ secrets.AWS_ACCESS_KEY_ID }} -p ${{ secrets.AWS_SECRET_ACCESS}}
+        
         
 
     
@@ -59,9 +61,8 @@ jobs:
           platforms: linux/amd64
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           push: true
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          
+          
         env:
           repository: ddprojects1/vertigo
             run:|
