@@ -56,8 +56,10 @@ jobs:
           REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
     
       - name: Build, tag, and push image to Amazon ECR
-        
         id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
         #uses: docker/build-push-action@v6
         # docker build -f ./app/client/Dockerfile -t ghcr.io/${{ github.repository }}/$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./app/client
         # docker push ghcr.io/${{ github.repository }}/$ECR_REPOSITORY:$IMAGE_TAG
