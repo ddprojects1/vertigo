@@ -49,10 +49,10 @@ jobs:
         id: build-image
         uses: docker/build-push-action@v5
         with:
-          context: https://github.com/ddprojects1/vertigo.git
+          context: ./client
           platforms: linux/amd64
           tags: ${{ github.repository }}:${{ github.sha }}
-          push:true
+          push: true
 
           -
         # env:
