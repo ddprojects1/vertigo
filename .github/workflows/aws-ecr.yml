@@ -46,10 +46,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
 
       - name: Build, tag, and push image to Amazon ECR
-        id: build-image
-        uses: docker/build-push-action@v6
+        # id: build-image
+        uses: docker/build-push-action@v4
         with:
-          context: ${{ github.repository }}
+          #context: ${{ github.repository }}
           platforms: linux/amd64
           tags: ${{ github.repository }}:${{ github.sha }}
           push: true
