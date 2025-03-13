@@ -49,7 +49,6 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
         
-
     
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
@@ -60,9 +59,9 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           push: true
         env:
-          #repository: ddprojects1/vertigo
+          repository: ddprojects1/vertigo
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          
+        
 
 
 
