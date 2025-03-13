@@ -32,7 +32,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
@@ -46,10 +46,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@62f4f872db3836360b72999f4b87f1ff13310f3a
 
       - name: Build, tag, and push image to Amazon ECR
-        id: build-image
+        #id: build-image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: https://github.com/ddprojects1/vertigo.git
           platforms: linux/amd64
           tags: ${{ github.repository }}:${{ github.sha }}
           push: true
