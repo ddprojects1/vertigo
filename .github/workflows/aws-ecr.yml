@@ -47,25 +47,30 @@ jobs:
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
+        uses: docker/build-push-action@v5
+        with:
+          context: https://github.com/ddprojects1/vertigo.git
+          platforms: linux/amd64
+          tags: ${{ github.repository }}:${{ github.sha }}
+          push:true
+
+          -
+        # env:
+        #   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        #   IMAGE_TAG: ${{ github.sha }}
+        # run: |
+        #   # Build a docker container and
+        #   # push it to ECR so that it can
+        #   # be deployed to ECS.
           
         
-          pwd && ls
+        #   pwd && ls
 
-          docker build -f ./app/client/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        #   docker build -f ./app/client/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        #   docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-        with:
-            context: .
+        #   echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
