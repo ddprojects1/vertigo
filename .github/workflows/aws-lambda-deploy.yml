@@ -1,10 +1,15 @@
 name: Deploy Agent Lambda Function
 
 on:
-  push:
-    branches:
-      - master # Or your main branch
-
+    push:
+      
+      branches:
+        - master
+  
+env:
+    AWS_REGION: us-east-2                   # set this to your preferred AWS region, e.g. us-west-1
+    
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,12 +20,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: "us-east-2"
+          aws-region: ${{ env.AWS_REGION }}
           # Clean Code
       - name: Zip the file
         run: |
