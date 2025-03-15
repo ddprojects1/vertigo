@@ -31,8 +31,8 @@ bedrock_agent_runtime = boto3.client("bedrock-agent-runtime")
 bucket_name = "vertigo-lambda-bucket" 
 object_key_prefix = "Log_Alerts_"  
 writer_instruction = "Write a Run book for the below error message in "
-#RECIPIENT_EMAIL = ['Kartheek <aswani.karteek@accionlabs.com>','SRE1 <sre1.vertigo.demo@gmail.com>']
-RECIPIENT_EMAIL ="sre1.vertigo.demo@gmail.com"
+RECIPIENT_EMAIL = ["aswani.karteek@accionlabs.com","sre1.vertigo.demo@gmail.com"]
+#RECIPIENT_EMAIL ="sre1.vertigo.demo@gmail.com"
 time_stamped =''
 def getMarkDownHeader(incidentNo):
 	now = datetime.now()
@@ -92,8 +92,8 @@ def sendEmailWithAttachement(s3,ses,object_key,subject):
         msg = MIMEMultipart()
         msg['Subject'] = subject
         msg['From'] = "super.vertigo.demo@gmail.com"  # Get sender email from environment variable
-        #msg['To'] =  ', '.join(RECIPIENT_EMAIL)
-        msg['To'] = RECIPIENT_EMAIL
+        msg['To'] =  ', '.join(RECIPIENT_EMAIL)
+        #msg['To'] = RECIPIENT_EMAIL
 		
         # Add text body
         body = MIMEText(getEmailTemplate(), 'html')
@@ -109,7 +109,7 @@ def sendEmailWithAttachement(s3,ses,object_key,subject):
         try:
             ses.send_raw_email(
                 Source="super.vertigo.demo@gmail.com",
-                Destinations=[RECIPIENT_EMAIL],
+                Destinations=RECIPIENT_EMAIL,
                 RawMessage={'Data': msg.as_string()}
             )
             print('Email sent successfully!')
